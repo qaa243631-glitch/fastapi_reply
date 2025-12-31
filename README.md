@@ -1,6 +1,8 @@
-# CRUD FastAPI
+# CRUD FastAPI Proxy
 
-This is a CRUD API implemented using FastAPI, which mirrors specific endpoints from `https://dummyjson.com/products`.
+This is a CRUD API implemented using FastAPI that acts as a **proxy/relay** for `https://dummyjson.com/products`.
+
+It forwards requests to `dummyjson.com` and returns the response to the client. No data is stored locally.
 
 ## Requirements
 
@@ -34,20 +36,14 @@ The API will be available at `http://localhost:8000`.
 
 ## Endpoints
 
+All endpoints mirror the behavior of `dummyjson.com`.
+
 ### Products
 
 - **Get all products**: `GET /products`
-  - Query Params:
-    - `limit` (default: 30)
-    - `skip` (default: 0)
-    - `select` (comma-separated fields)
-    - `sortBy` (field name)
-    - `order` (`asc` or `desc`)
-
+  - Query Params: `limit`, `skip`, `select`, `sortBy`, `order` are forwarded.
 - **Get a single product**: `GET /products/{id}`
-
-- **Search products**: `GET /products/search`
-  - Query Params: `q` (search query)
+- **Search products**: `GET /products/search?q=...`
 
 ### Categories
 
@@ -55,9 +51,9 @@ The API will be available at `http://localhost:8000`.
 - **Get category list**: `GET /products/category-list`
 - **Get products by category**: `GET /products/category/{category_name}`
 
-### Write Operations (Simulated)
+### Write Operations
 
-These endpoints simulate write operations but **do not** modify the server state.
+These operations are forwarded to `dummyjson.com`, which simulates the write (returns the modified object without changing the actual database).
 
 - **Add a product**: `POST /products/add`
 - **Update a product**: `PUT /products/{id}`
